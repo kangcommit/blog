@@ -1,14 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PostForm } from "#/modules/post/components/post-form";
+import { PostList } from "#/modules/post/components/post-list";
+import { getPosts } from "#/modules/post/lib/get-posts";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+	component: Home,
+	loader: getPosts,
+});
 
 function Home() {
+	const posts = Route.useLoaderData();
+
 	return (
-		<div className="p-8">
-			<h1 className="text-4xl font-bold">Welcome to TanStack Start</h1>
-			<p className="mt-4 text-lg">
-				Edit <code>src/routes/index.tsx</code> to get started.
-			</p>
-		</div>
+		<>
+			<PostForm />
+			<PostList posts={posts.data} />
+		</>
 	);
 }
