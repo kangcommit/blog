@@ -1,29 +1,39 @@
 interface PostArticleProps {
+	id: number;
 	title: string;
 	excerpt: string;
 	createdAt: string;
+	onDelete: (id: number) => void;
 }
 
 export default function PostArticle(props: PostArticleProps) {
 	return (
-		<article className="flex flex-col gap-2 rounded-xl bg-gray-100 p-4 sm:p-6">
-			<p className="text-black text-xs sm:text-sm">
-				<p className="text-black text-sm">
-					{new Date(props.createdAt)
-						.toLocaleDateString("en-US", {
-							month: "long",
-							day: "numeric",
-							year: "numeric",
-						})
-						.toUpperCase()}
-				</p>
+		<article className="flex flex-col gap-3 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 transition hover:shadow-md sm:p-6">
+			<p className="text-gray-500 text-xs tracking-wider">
+				{new Date(props.createdAt)
+					.toLocaleDateString("en-US", {
+						month: "short",
+						day: "numeric",
+						year: "numeric",
+					})
+					.toUpperCase()}
 			</p>
-			<h2 className="font-bold text-[#141414] text-xl sm:text-2xl">
+
+			<h2 className="font-semibold text-gray-900 text-lg sm:text-xl">
 				{props.title}
 			</h2>
-			<p className="text-justify text-[#505050] text-sm sm:text-base">
+
+			<p className="text-gray-600 text-sm leading-relaxed sm:text-base">
 				{props.excerpt}
 			</p>
+
+			<button
+				onClick={() => props.onDelete(props.id)}
+				type="button"
+				className="inline-flex cursor-pointer items-center gap-2 self-end rounded-lg bg-red-50 px-3 py-1.5 font-medium text-red-600 text-sm ring-1 ring-red-100 transition hover:bg-red-100 hover:text-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 active:scale-[0.98]"
+			>
+				Delete
+			</button>
 		</article>
 	);
 }
