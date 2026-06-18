@@ -4,10 +4,10 @@ import { deletePost } from "../lib/delete-post";
 export function usePostDelete() {
 	const router = useRouter();
 
-	const handleDelete = async (id: number) => {
-		await deletePost(String(id));
+	async function handleDelete(id: number) {
+		await deletePost(id);
 		router.invalidate();
-	};
+	}
 
 	return { handleDelete };
 }

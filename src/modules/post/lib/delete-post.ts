@@ -1,4 +1,4 @@
-export async function deletePost(id: string) {
+export async function deletePost(id: number) {
 	const url = `http://localhost:8000/posts/${id}`;
 
 	try {
