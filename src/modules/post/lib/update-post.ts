@@ -16,8 +16,13 @@ export async function updatePost(
 		});
 
 		if (!response.ok) {
-			const message = await response.text();
-			throw new Error(`Update failed (${response.status}): ${message}`);
+			// Try to get the message from the server's JSON response
+			const errorData = await response.json().catch(() => ({}));
+
+			// Throw the specific server message or fallback to status text
+			throw new Error(
+				errorData.message || `Response status: ${response.status}`,
+			);
 		}
 
 		return await response.json();
