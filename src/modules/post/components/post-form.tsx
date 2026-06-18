@@ -1,8 +1,8 @@
-import { usePostForm } from "../hooks/use-post-form";
+import { usePostCreate } from "../hooks/use-post-create";
 
 export function PostForm() {
 	const { form, slug, handleChange, handleSubmit, isSubmitting, error } =
-		usePostForm();
+		usePostCreate();
 
 	return (
 		<form
@@ -60,7 +60,7 @@ export function PostForm() {
 			<button
 				type="submit"
 				disabled={isSubmitting}
-				className="rounded-md bg-black px-4 py-2 font-medium text-sm text-white transition hover:opacity-90 disabled:opacity-50 sm:w-auto sm:self-start sm:text-base"
+				className="cursor-pointer rounded-md bg-black px-4 py-2 font-medium text-sm text-white transition hover:opacity-90 disabled:opacity-50 sm:w-auto sm:self-start sm:text-base"
 			>
 				{isSubmitting ? "Saving..." : "Save Post"}
 			</button>
