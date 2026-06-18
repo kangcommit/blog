@@ -3,7 +3,7 @@ import { usePostEditorModal } from "../hooks/use-post-editor-modal";
 import type { Post } from "../types";
 import { EditPostForm } from "./edit-post-form";
 import { Modal } from "./modal";
-import PostArticle from "./post-article";
+import PostCard from "./post-card";
 
 interface PostListProps {
 	posts: Post[];
@@ -20,7 +20,7 @@ export function PostList({ posts }: PostListProps) {
 		<>
 			<div className="mx-auto mt-12 flex w-full max-w-2xl flex-col gap-10 px-4 sm:px-6">
 				{posts.map((post) => (
-					<PostArticle
+					<PostCard
 						key={post.id}
 						{...post}
 						onDelete={handleDelete}
