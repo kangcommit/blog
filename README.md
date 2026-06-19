@@ -15,6 +15,18 @@ A modern blog platform built with [TanStack Start](https://tanstack.com/start), 
 
 ## Getting Started
 
+### Prerequisites
+
+This blog application requires a backend API running separately. Clone and start the backend API first:
+
+```bash
+git clone https://github.com/kangcommit/blog-api.git
+cd blog-api
+# Follow the instructions in the blog-api README to start the backend on port 8000
+```
+
+### Running the Frontend
+
 To run this application:
 
 ```bash
@@ -22,7 +34,7 @@ pnpm install
 pnpm dev
 ```
 
-The application will be available at `http://localhost:3000`.
+The application will be available at `http://localhost:3000` (make sure your backend API is running on `http://localhost:8000`).
 
 ## Building For Production
 
