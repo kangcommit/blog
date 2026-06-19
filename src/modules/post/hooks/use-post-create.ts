@@ -1,8 +1,8 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
+import { api } from "#/utils/api";
 import { validatePostForm } from "../form/post-form-utils";
 import { usePostFields } from "../form/use-post-fields";
-import { createPost } from "../lib/create-post";
 import type { PostFormFields } from "../types";
 
 const initialValues: PostFormFields = {
@@ -32,10 +32,22 @@ export function usePostCreate() {
 		try {
 			setIsSubmitting(true);
 
-			await createPost({
-				...form,
-				slug,
+			const response = await api.posts.$post({
+				json: {
+					title: form.title,
+					excerpt: form.excerpt,
+					content: form.content,
+					slug,
+				},
 			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+
+				if ("message" in errorData) {
+					throw new Error(errorData.message);
+				}
+			}
 
 			setForm(initialValues);
 			router.invalidate();

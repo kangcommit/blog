@@ -1,11 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PostForm } from "#/modules/post/components/post-form";
 import { PostList } from "#/modules/post/components/post-list";
-import { getPosts } from "#/modules/post/lib/get-posts";
+import { api } from "#/utils/api";
 
 export const Route = createFileRoute("/")({
 	component: Home,
-	loader: getPosts,
+	loader: async () => {
+		const response = await api.posts.$get();
+		const data = response.json();
+		return data;
+	},
 });
 
 function Home() {

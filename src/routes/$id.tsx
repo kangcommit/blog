@@ -1,12 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PostDetail } from "#/modules/post/components/post-detail";
-import { getPost } from "#/modules/post/lib/get-post";
+import { api } from "#/utils/api";
 
 export const Route = createFileRoute("/$id")({
 	component: RouteComponent,
 	loader: async ({ params }) => {
-		const id = Number(params.id);
-		return getPost(id);
+		const response = await api.posts[":id"].$get({
+			param: {
+				id: params.id,
+			},
+		});
+		const data = await response.json();
+
+		if (!data.success) {
+			throw new Error(data.message);
+		}
+
+		return data;
 	},
 });
 

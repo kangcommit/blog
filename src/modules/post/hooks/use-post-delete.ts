@@ -1,11 +1,15 @@
 import { useRouter } from "@tanstack/react-router";
-import { deletePost } from "../lib/delete-post";
+import { api } from "#/utils/api";
 
 export function usePostDelete() {
 	const router = useRouter();
 
 	async function handleDelete(id: number) {
-		await deletePost(id);
+		await api.posts[":id"].$delete({
+			param: {
+				id: String(id),
+			},
+		});
 		router.invalidate();
 	}
 

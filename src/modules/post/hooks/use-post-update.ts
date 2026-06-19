@@ -1,8 +1,8 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
+import { api } from "#/utils/api";
 import { validatePostForm } from "../form/post-form-utils";
 import { usePostFields } from "../form/use-post-fields";
-import { updatePost } from "../lib/update-post";
 import type { Post } from "../types";
 
 export function usePostUpdate(initialData: Post) {
@@ -30,10 +30,23 @@ export function usePostUpdate(initialData: Post) {
 		try {
 			setIsSubmitting(true);
 
-			await updatePost(initialData.id, {
-				...form,
-				slug,
+			const response = await api.posts[":id"].$patch({
+				param: { id: String(initialData.id) },
+				json: {
+					title: form.title,
+					excerpt: form.excerpt,
+					content: form.content,
+					slug,
+				},
 			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+
+				if ("message" in errorData) {
+					throw new Error(errorData.message);
+				}
+			}
 
 			router.invalidate();
 			return true;
