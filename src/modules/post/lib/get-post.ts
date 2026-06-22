@@ -1,4 +1,4 @@
-import type { Post, PostResponse } from "../types";
+import type { PostResponse } from "../types";
 
 export async function getPost(id: number): Promise<PostResponse> {
 	const url = `http://localhost:8000/posts/${id}`;
