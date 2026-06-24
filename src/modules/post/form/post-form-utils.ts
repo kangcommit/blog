@@ -1,3 +1,5 @@
+import type { PostFormFields } from "../types";
+
 export function slugify(value: string) {
 	return value
 		.toLowerCase()
@@ -6,12 +8,6 @@ export function slugify(value: string) {
 		.replace(/\s+/g, "-")
 		.replace(/-+/g, "-");
 }
-
-export type PostFormFields = {
-	title: string;
-	excerpt: string;
-	content: string;
-};
 
 export function validatePostForm(form: PostFormFields) {
 	const missingFields: string[] = [];

@@ -1,13 +1,8 @@
 // hooks/use-post-fields.ts
 import type React from "react";
 import { useMemo, useState } from "react";
+import type { PostFormFields } from "../types";
 import { slugify } from "./post-form-utils";
-
-export type PostFormFields = {
-	title: string;
-	excerpt: string;
-	content: string;
-};
 
 export function usePostFields(initialValues: PostFormFields) {
 	const [form, setForm] = useState(initialValues);
